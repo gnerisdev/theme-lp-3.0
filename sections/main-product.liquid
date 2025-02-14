@@ -2314,3 +2314,10 @@
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const acceleratedButton = document.querySelector(".shopify-payment-button button");
+    if (acceleratedButton) acceleratedButton.textContent = "COMPRAR"; 
+  });
+</script>

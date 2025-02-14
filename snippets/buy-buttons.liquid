@@ -74,7 +74,6 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            style="text-transform: uppercase;"
             class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
@@ -82,7 +81,17 @@
             %}
               disabled
             {% endif %}
-          >Add ao carrinho
+          >
+            <span>
+              {%- if product.selected_or_first_available_variant == null -%}
+                {{ 'products.product.unavailable' | t }}
+              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- else -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- endif -%}
+            </span>
+            {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
