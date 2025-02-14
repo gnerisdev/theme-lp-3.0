@@ -2,9 +2,11 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "settings": {}
     },
     "footer": {
-      "type": "footer"
+      "type": "footer",
+      "settings": {}
     }
   },
   "order": [

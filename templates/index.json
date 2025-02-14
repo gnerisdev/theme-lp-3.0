@@ -1,22 +1,57 @@
 {
   "sections": {
-    "content-oversized": {
-      "type": "content-oversized",
-    },
-    "content-promocoes": {
-      "type": "content-promocoes"
-    },
     "content-hero": {
       "type": "content-hero",
+      "settings": {}
     },
     "content-compra-segura": {
       "type": "content-compra-segura",
+      "settings": {}
     },
     "content-categories": {
       "type": "content-categories",
+      "settings": {}
+    },
+    "content-promocoes": {
+      "type": "content-promocoes",
+      "disabled": true,
+      "settings": {}
+    },
+    "featured_collection_MLCEhX": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Achadinhos da semana",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "achadinho-da-semana",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "content-oversized": {
+      "type": "content-oversized",
+      "settings": {}
     },
     "footer": {
-      "type": "footer"
+      "type": "footer",
+      "settings": {}
     }
   },
   "order": [
@@ -24,6 +59,7 @@
     "content-compra-segura",
     "content-categories",
     "content-promocoes",
+    "featured_collection_MLCEhX",
     "content-oversized",
     "footer"
   ]

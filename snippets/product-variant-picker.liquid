@@ -33,10 +33,14 @@
             class="form__label" 
             style="color: #434343; text-transform: uppercase; font-family: 'Montserrat', Sans-serif;"
           >
-            {{ option.name }}:
-            <span data-selected-value>
+            {% if option.name == "Color" %}
+              Cor:
+            {% else %}
+              {{ option.name }}:
+            {% endif %}
+            {% comment %} <span data-selected-value>
               <strong>{{- option.selected_value -}}</strong>
-            </span>
+            </span> {% endcomment %}
           </legend>
           {% render 'product-variant-options',
             product: product,
@@ -51,7 +55,11 @@
             class="form__label"
             style="color: #434343; text-transform: uppercase; font-family: 'Montserrat', Sans-serif;"
           >
-            {{ option.name }}
+            {% if option.name == "Size" %}
+              Tamanho:
+            {% else %}
+              {{ option.name }}:
+            {% endif %}
           </legend>
           {% render 'product-variant-options',
             product: product,
