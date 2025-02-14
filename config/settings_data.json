@@ -35,7 +35,7 @@
     "card_style": "standard",
     "card_image_padding": 0,
     "card_text_alignment": "left",
-    "card_color_scheme": "scheme-1",
+    "card_color_scheme": "scheme-2",
     "card_border_thickness": 0,
     "card_border_opacity": 10,
     "card_corner_radius": 0,
@@ -97,7 +97,7 @@
     "sale_badge_color_scheme": "scheme-4",
     "sold_out_badge_color_scheme": "scheme-3",
     "brand_headline": "",
-    "brand_description": "<p><\/p>",
+    "brand_description": "<p></p>",
     "brand_image_width": 100,
     "social_facebook_link": "",
     "social_instagram_link": "",
@@ -111,7 +111,7 @@
     "predictive_search_enabled": true,
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
-    "currency_code_enabled": false,
+    "currency_code_enabled": true,
     "cart_type": "notification",
     "show_vendor": false,
     "show_cart_note": false,
@@ -120,37 +120,32 @@
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
+        "settings": { "color_scheme": "scheme-1" }
       },
       "main-password-footer": {
         "type": "main-password-footer",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
+        "settings": { "color_scheme": "scheme-1" }
       }
     },
-    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#FFFFFF",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
-          "button_label": "#ffffff",
+          "button_label": "#FFFFFF",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#f3f3f3",
+          "background": "#F3F3F3",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
-          "button_label": "#f3f3f3",
+          "button_label": "#F3F3F3",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
@@ -159,10 +154,10 @@
         "settings": {
           "background": "#242833",
           "background_gradient": "",
-          "text": "#ffffff",
-          "button": "#ffffff",
+          "text": "#FFFFFF",
+          "button": "#FFFFFF",
           "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
+          "secondary_button_label": "#FFFFFF",
           "shadow": "#121212"
         }
       },
@@ -170,21 +165,21 @@
         "settings": {
           "background": "#121212",
           "background_gradient": "",
-          "text": "#ffffff",
-          "button": "#ffffff",
+          "text": "#FFFFFF",
+          "button": "#FFFFFF",
           "button_label": "#121212",
-          "secondary_button_label": "#ffffff",
+          "secondary_button_label": "#FFFFFF",
           "shadow": "#121212"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#334fb4",
+          "background": "#334FB4",
           "background_gradient": "",
-          "text": "#ffffff",
-          "button": "#ffffff",
-          "button_label": "#334fb4",
-          "secondary_button_label": "#ffffff",
+          "text": "#FFFFFF",
+          "button": "#FFFFFF",
+          "button_label": "#334FB4",
+          "secondary_button_label": "#FFFFFF",
           "shadow": "#121212"
         }
       }
@@ -346,7 +341,7 @@
       "sale_badge_color_scheme": "scheme-4",
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
-      "brand_description": "<p><\/p>",
+      "brand_description": "<p></p>",
       "brand_image_width": 100,
       "social_twitter_link": "",
       "social_facebook_link": "",
@@ -369,15 +364,11 @@
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
+          "settings": { "color_scheme": "scheme-1" }
         },
         "main-password-footer": {
           "type": "main-password-footer",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
+          "settings": { "color_scheme": "scheme-1" }
         }
       }
     }
