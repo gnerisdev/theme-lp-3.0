@@ -23,6 +23,7 @@
     },
     "content-promocoes": {
       "type": "content-promocoes",
+      "disabled": true,
       "settings": {}
     },
     "featured_collection_MLCEhX": {
