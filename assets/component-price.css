@@ -21,6 +21,31 @@
 .price .price-item {
   display: inline-block;
   margin: 0 1rem 0 0;
+  font-size: 16px;
+  margin-top: 10px;
+  position: relative;
+  font-weight: bold;
+  line-height: 30px;
+  font-family: "Montserrat", Sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.product__info-wrapper .price-item {
+  display: inline-block;
+  margin: 0 1rem 0 0;
+  font-size: 3rem;
+  position: relative;
+  font-weight: bold;
+  line-height: 30px;
+  font-family: "Montserrat", Sans-serif;
+  color: #434343;
+  word-spacing: -11px;
+}
+
+.product__info-wrapper .price-item:after {
+  content: " BRL";
+  display: none;
 }
 
 .price__regular .price-item--regular {

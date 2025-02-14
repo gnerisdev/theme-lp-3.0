@@ -1,0 +1,200 @@
+<section class="Container" style="position: relative">
+  <h2 class="h5-xs text-center text-uppercase m-top-xs m-bottom">Achadinhos da semana</h2>
+
+  {% assign collection = collections["achadinho-da-semana"] %}
+  <div class="list-products" style="position: relative">
+    {% assign row_index = 0 %}
+    {% for product in collection.products %}
+      {% assign modulo = forloop.index0 | modulo: 3 %}
+      
+      {% if modulo == 0 %}
+        {% assign row_index = row_index | plus: 1 %}
+        <div class="list-products-row" id="products-row-{{ row_index }}">
+      {% endif %}
+      
+      <slideshow-component>
+        {% for product in recommendations.products limit:5 %}
+          <div class="slide">
+            <a href="{{ product.url }}">
+              <img src="{{ product.featured_image | img_url: '800x800' }}" alt="{{ product.title }}">
+              <p>{{ product.title }}</p>
+              <span>{{ product.price | money }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </slideshow-component>
+      
+      {% assign proximo = forloop.index0 | plus: 1 | modulo: 3 %}
+      {% if proximo == 0 or forloop.last %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    <div class="products-prev">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+        <path d="M4.2 247.5L151 99.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17L69.3 256l118.5 119.7c4.7 4.7 4.7 12.3 0 17L168 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 264.5c-4.7-4.7-4.7-12.3 0-17z"></path>
+      </svg>
+    </div>
+  
+    <div class="products-next">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+        <path d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z"></path>
+      </svg>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const rows = document.querySelectorAll(".list-products-row");
+    const items = document.querySelectorAll(".list-products__item");
+    const prevBtn = document.querySelector(".products-prev");
+    const nextBtn = document.querySelector(".products-next");
+    let currentIndex = 0;
+    let isMobileView = window.innerWidth <= 641;
+
+    function updateViewMode() {
+      isMobileView = window.innerWidth <= 641;
+      currentIndex = 0;
+
+      if (isMobileView) {
+        items.forEach((item, index) => {
+          item.style.display = index === currentIndex ? "block" : "none";
+        });
+        rows.forEach(row => row.style.display = "none");
+      } else {
+        rows.forEach((row, index) => {
+          row.style.display = index === currentIndex ? "flex" : "none";
+        });
+        items.forEach(item => item.style.display = "block");
+      }
+    }
+
+    function navigate(direction) {
+      if (isMobileView) {
+        if (direction === "next" && currentIndex < items.length - 1) {
+          currentIndex++;
+        } else if (direction === "prev" && currentIndex > 0) {
+          currentIndex--;
+        }
+        items.forEach((item, index) => {
+          item.style.display = index === currentIndex ? "block" : "none";
+        });
+      } else {
+        if (direction === "next" && currentIndex < rows.length - 1) {
+          currentIndex++;
+        } else if (direction === "prev" && currentIndex > 0) {
+          currentIndex--;
+        }
+        rows.forEach((row, index) => {
+          row.style.display = index === currentIndex ? "flex" : "none";
+        });
+      }
+    }
+
+    prevBtn.addEventListener("click", () => navigate("prev"));
+    nextBtn.addEventListener("click", () => navigate("next"));
+    window.addEventListener("resize", updateViewMode);
+
+    updateViewMode();
+  });
+</script>
+
+<style>
+  .products-prev, .products-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    background-color: #1b1b1bcf;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .products-prev {
+    left: 4px;
+  }
+
+  .products-next {
+    right: 4px;
+  }
+
+  .products-prev svg, .products-next svg {
+    height: 28px;
+    fill: #ffffff;
+  }
+
+  section {
+    margin: 80px auto !important;
+  }
+
+  .list-products {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    position: relative;
+  }
+
+  .list-products-row {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-width: 641px) {
+    .list-products-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .list-products-row:first-of-type {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .list-products__item {
+    margin: auto;
+  }
+
+  @media (max-width: 641px) {
+    .list-products__item {
+      display: none;
+    }
+    .list-products__item:first-of-type {
+      display: initial;
+    }
+  }
+
+  .list-products__item-image {
+    width: 330px;
+    height: 500px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1200px) {
+    .list-products__item-image {
+      width: 208px;
+      height: 311px;
+    }
+  }
+
+  @media (max-width: 770px) {
+    .list-products__item-image {
+      width: 172px;
+      height: 260px;
+    }
+  }
+
+  @media (max-width: 641px) {
+    .list-products__item-image {
+      width: 333px;
+      height: 500px;
+    }
+  }
+</style>

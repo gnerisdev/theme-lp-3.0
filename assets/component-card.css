@@ -90,7 +90,7 @@
 }
 
 .card-information {
-  text-align: var(--text-alignment);
+  text-align: center;
 }
 
 .card__media,
@@ -303,6 +303,12 @@
 .card__heading {
   margin-top: 0;
   margin-bottom: 0;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Montserrat", Sans-serif;
+  display: block;
+  margin: 5px;
+  color: #434343;
 }
 
 .card__heading:last-child {
@@ -399,11 +405,6 @@
     opacity: 1;
     transition: transform var(--duration-long) ease;
     transform: scale(1.03);
-  }
-
-  .underline-links-hover:hover a {
-    text-decoration: underline;
-    text-underline-offset: 0.3rem;
   }
 }
 

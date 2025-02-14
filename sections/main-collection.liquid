@@ -1,0 +1,219 @@
+{% assign sorted_products = collection.products %}
+
+{% case sort_by %}
+{% when 'price-ascending' %}
+{% assign sorted_products = collection.products | sort: 'price' %}
+{% when 'price-descending' %}
+{% assign sorted_products = collection.products | sort: 'price' | reverse %}
+{% when 'title-ascending' %}
+{% assign sorted_products = collection.products | sort: 'title' %}
+{% when 'title-descending' %}
+{% assign sorted_products = collection.products | sort: 'title' | reverse %}
+{% when 'created-ascending' %}
+{% assign sorted_products = collection.products | sort: 'created_at' %}
+{% when 'created-descending' %}
+{% assign sorted_products = collection.products | sort: 'created_at' | reverse %}
+{% else %}
+{% assign sorted_products = collection.products %}
+{% endcase %}
+
+<section class="container">
+  <div id="collection-main" class="js-body-position container" style="margin-top: 2.5rem; padding: 0">
+    <div class="banner-services-category hidden-phone"></div>
+    <div class="js-category-breadcrumbs row-fluid container-wide categoria container-xs m-bottom m-none-xs m-bottom-quarter-xs">
+      <div class="span8 left">
+        <div class="breadcrumb m-bottom-half m-top-half">
+          <a class="h6 font-body-xs crumb" href="/">Início</a>
+          <span class="breadcrumb-divider">/</span>
+          <h1 class="breadcrumb-crumb active">{{ collection.title }}</h1>
+        </div>
+      </div>
+      <div class="hidden-phone text-right sort-by-container">
+        <label for="sort" class="d-inline">Ordenar por:</label>
+        <select id="sort" class="js-sort-by sort-by full-width-xs" onchange="handleSortChange(this.value)" style="margin: 0;">
+          <option value="manual" {% if sort_by=='manual' %} selected {% endif %}>
+            Ordenação Manual
+          </option>
+          <option value="price-ascending" {% if sort_by=='price-ascending' %} selected {% endif %}>
+            Preço: Menor ao Maior
+          </option>
+          <option value="price-descending" {% if sort_by=='price-descending' %} selected {% endif %}>
+            Preço: Maior ao Menor
+          </option>
+          <option value="created-ascending" {% if sort_by=='created-ascending' %} selected {% endif %}>
+            Mais Antigo ao Mais Novo
+          </option>
+          <option value="created-descending" {% if sort_by=='created-descending' %} selected {% endif %}>
+            Mais Novo ao Mais Antigo
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-category-controls-prev category-controls-sticky-detector"></div>
+
+  <div class="js-category-controls category-controls container-xs visible-phone visible-when-content-ready">
+    <div class="text-left sort-by-container m-top-quarter">
+      <label for="sort" class="d-inline">Ordenar por:</label>
+      <select id="sort" class="js-sort-by sort-by full-width-xs" onchange="handleSortChange(this.value)" style="margin: 0;">
+        <option value="manual" {% if sort_by=='manual' %} selected {% endif %}>
+          Ordenação Manual
+        </option>
+        <option value="price-ascending" {% if sort_by=='price-ascending' %} selected {% endif %}>
+          Preço: Menor ao Maior
+        </option>
+        <option value="price-descending" {% if sort_by=='price-descending' %} selected {% endif %}>
+          Preço: Maior ao Menor
+        </option>
+        <option value="created-ascending" {% if sort_by=='created-ascending' %} selected {% endif %}>
+          Mais Antigo ao Mais Novo
+        </option>
+        <option value="created-descending" {% if sort_by=='created-descending' %} selected {% endif %}>
+          Mais Novo ao Mais Antigo
+        </option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section class="Container" style="margin-bottom: 4rem;">
+  <div class="list-products">
+    {%- for product in sorted_products -%}
+    {% assign modulo = forloop.index0 | modulo: 3 %}
+
+    {% if modulo == 0 %}
+    <div class="list-products-row" id="products-row-{{ row_index }}">
+      {% endif %}
+
+      <a href="{{ product.url }}" class="list-products__item" id="products-row-{{ forloop.index }}">
+        <img src="{{ product.featured_image | img_url: '800x800' }}" alt="{{ product.title }}" class="list-products__item-image">
+        <img src="{{ product.images[1] | img_url: '800x800' }}" alt="{{ product.title }}" class="list-products__item-image hover-image">
+
+        <span class="list-products__title">{{ product.title }}</span>
+        <span class="list-products__price">{{ product.price | money }}</span>
+
+        <button
+          class="js-quickshop-modal-open js-fullscreen-modal-open btn btn-primary full-width-xs p-right-half-xs p-left-half-xs btn-small btn-smallest font-small-extra p-right p-left m-auto">
+          COMPRAR
+        </button>
+      </a>
+
+      {% assign proximo = forloop.index | modulo: 3 %}
+      {% if proximo == 0 or forloop.last %}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .list-products {
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+  }
+
+  .list-products-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 641px) {
+    .list-products-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .list-products__item {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px -1px 0px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
+    padding: 8px;
+    background: #fff;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    width: 330px;
+  }
+
+  .list-products__item:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 641px) {
+    .list-products__item:first-of-type {
+      display: initial;
+    }
+
+    .list-products__item {
+      width: 333px !important;
+    }
+  }
+
+  @media (max-width: 770px) {
+    .list-products__item {
+      width: 172px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .list-products__item {
+      width: 208px;
+    }
+  }
+
+  .list-products__item img {
+    width: 100%;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .list-products__item .hover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .list-products__item:hover .default-image {
+    opacity: 0;
+  }
+
+  .list-products__item:hover .hover-image {
+    opacity: 1;
+  }
+
+  .list-products__title {
+    color: #434343;
+    display: block;
+    z-index: 9;
+    margin-top: 8px;
+  }
+
+  .list-products__price {
+    color: #434343;
+    display: block;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin: 8px 0;
+  }
+
+  .list-products button {
+    width: 200px;
+  }
+</style>
+
+<script>
+  function handleSortChange() {
+    const sortValue = document.getElementById('sort').value;
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('sort_by', sortValue);
+    window.location.href = currentUrl.toString();
+  }
+</script>

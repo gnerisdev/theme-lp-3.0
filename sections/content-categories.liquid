@@ -1,0 +1,172 @@
+<section class="container-wide banner-wrapper p-relative container" style="margin-top: 0 !important;">
+  {% assign count = 0 %}
+{% for collection in collections %}
+  {% if collection.description %}
+    {% assign description_stripped = collection.description | strip | strip_newlines | downcase %}
+    {% if description_stripped contains "destaque" %}
+      
+      {% assign count = count | plus: 1 %}
+      {% assign is_start_of_row = count | modulo: 3 %}
+      {% if count == 1 or is_start_of_row == 1 %}
+        <div class="row-fluid">
+      {% endif %}
+      
+      <div class="span4">
+        <div class="textbanner text-center placeholder-container">
+          <a class="textbanner-link" href="{{ collection.url }}" alt="{{ collection.title }}" title="{{ collection.title }}">
+            <div class="textbanner-image overlay">
+              <img class="textbanner-image-background lazyautosizes blur-up-huge ls-is-cached lazyloaded" 
+                   src="{{ collection.image | img_url: '500x' }}" 
+                   srcset="
+                      {{ collection.image | img_url: '500x' }} 500w,
+                      {{ collection.image | img_url: '1000x' }} 1000w,
+                      {{ collection.image | img_url: '1500x' }} 1500w
+                    " 
+                   sizes="(max-width: 768px) 100vw, 50vw" 
+                   alt="{{ collection.title }}">
+            </div>
+            <div class="textbanner-text">
+              <h3 class="textbanner-title">{{ collection.title }}</h3>
+              <div class="btn btn-primary btn-small" style="padding: 12px">VER PRODUTOS</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      {% assign is_end_of_row = count | modulo: 3 %}
+      {% if is_end_of_row == 0 or forloop.last %}
+        </div>
+      {% endif %}
+      
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+
+</section>
+
+<section class="container">
+  <div class="row-fluid container-wide m-top-half-xs m-bottom-half-xs m-section">
+    <div class="span12">
+      <div class="subtitle-container m-bottom m-none-xs">
+        <h2 class="h5-xs">ESCOLHA, PAGUE E RECEBA SEU PEDIDO SEM SAIR DE SUA CASA.</h2>
+      </div>
+    </div>
+  </div>
+
+  <div data-store="home-products-featured">
+    <section class="mobile-home-categories horizontal-container pills-container container-fluid visible-phone text-left m-bottom-half">
+      <ul>
+        {%- for collection in collections -%}
+        <li data-item="1" class="pill m-left-half">
+          <a class="pill-link" href="{{ collection.url }}" title="{{ collection.title }}">
+            {{ collection.title }}
+          </a>
+        </li>
+        {%- endfor -%}
+      </ul>
+    </section>
+
+    <div class="row-fluid container-wide home-prods m-section m-top m-none-xs">
+      <div class="span2 left-col hidden-phone visible-when-content-ready">
+        <div class="visible-when-content-ready pull-left hidden-phone">
+          <h3 class="h6 cat-title weight-strong m-bottom">Categorias principais</h3>
+          <div class="sidebar">
+            <ul class="home-categories-list pull-left clearfix">
+              {%- for collection in collections -%}
+              <li data-item="1" class="m-bottom-quarter clearfix">
+                <a href="{{ collection.url }}" title="{{ collection.title }}">
+                  {{ collection.title }}
+                </a>
+              </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="span10 home-grid right-col">
+        <div class="js-product-table product-table">
+          {% for product in collections.all.products %}
+          {%- assign is_start_row = forloop.index | modulo: 4 -%}
+          {%- if forloop.index == 1 or is_start_row == 1 -%}
+          <div class="grid-row">
+            {%- endif -%}
+
+            <div class="span3 item-container m-bottom-half">
+              <div class="js-item-product item m-top-none-xs">
+                <div class="js-product-container js-quickshop-container js-quickshop-has-variants">
+                  <div class="js-item-image-container item-image-container">
+                    <div style="padding-bottom: 150%;" class="js-item-image-padding p-relative">
+                      <a href="{{ product.url }}" title="{{ product.title }}" aria-label="{{ product.title }}">
+                        <picture>
+                          <source class="js-item-image-source" media="(max-width: 767px)"
+                            data-srcset="{{ product.featured_image | img_url: '640x960' }} 640w, {{ product.featured_image | img_url: '800x1200' }} 800w"
+                            srcset="{{ product.featured_image | img_url: '640x960' }} 640w, {{ product.featured_image | img_url: '800x1200' }} 800w">
+                          <img src="{{ product.featured_image | img_url: '800x1200' }}" alt="{{ product.title }}"
+                            class="js-item-image js-item-image-primary item-image img-absolute img-absolute-centered fade-in lazyloaded" width="800"
+                            height="1200" style="width: 100%; height: 100%; object-fit: contain;">
+                          <div class="placeholder-fade"></div>
+                        </picture>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="item-info-container" data-store="product-item-info-244179528">
+                    <a href="{{ product.url }}" title="{{ product.title }}" class="js-item-name item-name" aria-label="{{ product.title }}">
+                      {{ product.title }}
+                    </a>
+                    <div class="item-price-container m-bottom-quarter">
+                      <span class="price-compare">
+                        {% if product.compare_at_price > product.price %}
+                        <span class="js-compare-price-display item-price-compare p-none-left-xs p-right-quarter-xs">
+                          {{ product.compare_at_price | money }}
+                        </span>
+                        {% endif %}
+                      </span>
+                      <span class="js-price-display item-price h6">{{ product.price | money }}</span>
+                    </div>
+                  </div>
+
+                  <div class="item-actions m-top-half">
+                    <a href="{{ product.url }}"
+                      class="js-quickshop-modal-open btn btn-primary full-width-xs p-right-half-xs p-left-half-xs btn-small btn-smallest font-small-extra p-right p-left m-auto"
+                      title="Compra rápida de {{ product.title }}" aria-label="Compra rápida de {{ product.title }}">Comprar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {%- assign is_end_row = forloop.index | modulo: 4 -%}
+            {%- if is_end_row == 0 or forloop.last -%}
+          </div>
+          {%- endif -%}
+          {% endfor %}
+
+          {% comment %} <div class="row-fluid container-xs container-see-all-prods text-center clear-both visible-when-content-ready">
+            <a href="/produtos/" class="btn-see-all-prods btn btn-primary btn-small d-inline-block m-top m-bottom p-left p-right span4 offset4"
+              aria-label="Ver todos os produtos">
+              Ver todos os produtos
+            </a>
+          </div> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 769px) {
+    .mobile-home-categories {
+      margin: 0 !important;
+    }
+
+    .container-wide.banner-wrapper.container {
+      padding: 0;
+    }
+
+    section {
+      margin: 40px auto !important;
+    }
+  }
+</style>

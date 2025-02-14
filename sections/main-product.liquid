@@ -72,8 +72,21 @@
     >
   {%- endif -%}
 
+
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
+    <div class="js-product-breadcrumbs-container span12">
+      <div class="breadcrumb m-bottom-half m-top-half" data-store="page-title">
+        <a class="h6 font-body-xs crumb" href="{{ shop.url }}" title="{{ shop.name }}" style="text-decoration: none">Início</a>
+        <span class="breadcrumb-divider">/</span>
+        {% for collection in product.collections %}
+          <a class="breadcrumb-crumb" href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a>
+          <span class="breadcrumb-divider">/</span>
+        {% endfor %}
+        <span class="breadcrumb-crumb active" style="font-weight: bold">{{ product.title }}</span>
+      </div>
+    </div>
+
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
@@ -81,6 +94,7 @@
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
+          style="margin-top: 2rem"
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
@@ -89,13 +103,6 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
-              {%- when 'text' -%}
-                <p
-                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
-                  {{ block.shopify_attributes }}
-                >
-                  {{- block.settings.text -}}
-                </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
@@ -113,6 +120,60 @@
                     show_badges: true,
                     price_class: 'price--large'
                   -%}
+
+                  <div class="p-relative m-bottom pull-left full-width">
+                    <div
+                      href="#installments-modal"
+                      data-toggle="modal"
+                      data-modal-url="modal-fullscreen-payments"
+                      class="js-fullscreen-modal-open js-product-payments-container link-module product-payment-link"
+                    >
+                      <div class="m-bottom-half">
+                        <div class="js-max-installments-container js-max-installments installments text-uppercase d-inline-block">
+                          <div class="js-max-installments product-installments">
+                            <span class="js-installment-amount product-installment-amount">2</span>
+                            <span>x de </span>
+                            <span class="js-installment-price product-installment-value">{{ product.selected_or_first_available_variant.price | divided_by: 2 | money }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="m-left-none m-bottom-quarter" style="display: flex; gap: 8px;">
+                        <img
+                          src="//d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/visa@2x.png"
+                          data-src="//d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/visa@2x.png"
+                          class="product-payment-logos-img card-img ls-is-cached lazyloaded"
+                        >
+                        <img
+                          src="//d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/mastercard@2x.png"
+                          data-src="//d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/mastercard@2x.png"
+                          class="product-payment-logos-img card-img ls-is-cached lazyloaded"
+                        >
+                        <div style="display: flex; gap: 8px;">
+                          <svg
+                            class="svg-inline--fa fa-w-18 fa-lg pull-left"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 576 512"
+                          >
+                            <path d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"></path>
+                          </svg>
+                          <svg
+                            class="svg-inline--fa fa-w-14 product-payment-icon-plus p-absolute"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 448 512"
+                          >
+                            <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>
+                          </svg>
+                        </div>
+                      </div>
+
+                      <div style="color: #434343; text-decoration: none; font-size: 12px" >
+                        Aceitamos os principais métodos de pagamento
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -304,7 +365,7 @@
                             {%- if variant_price_compare -%}
                               <dl class="price-per-item--current">
                                 <dt class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
+                                  {{ 'products.product.price.regular_price' | money_with_currency }}
                                 </dt>
                                 <dd>
                                   <s class="variant-item__old-price">
@@ -344,7 +405,7 @@
                             {%- if variant_price_compare -%}
                               <dl class="price-per-item--current">
                                 <dt class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
+                                  {{ 'products.product.price.regular_price' | money_with_currency }}
                                 </dt>
                                 <dd>
                                   <s class="variant-item__old-price">
@@ -352,7 +413,7 @@
                                   </s>
                                 </dd>
                                 <dt class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
+                                  {{ 'products.product.price.sale_price' | money_with_currency }}
                                 </dt>
                                 <dd>
                                   <span class="price-per-item--current">
@@ -455,11 +516,6 @@
                     {{ block.settings.text | default: block.settings.page.title | escape }}
                   </button>
                 </modal-opener>
-              {%- when 'share' -%}
-                {% liquid
-                  assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
-                  render 'share-button', block: block, share_link: share_url
-                %}
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
