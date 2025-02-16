@@ -81,7 +81,7 @@
         "h2 {text-align: center;}"
       ],
       "settings": {
-        "heading": "<strong>PRODUTOS RELACIONADOS<\/strong>",
+        "heading": "<strong>PRODUTOS RELACIONADOS</strong>",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
