@@ -94,7 +94,6 @@
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          style="margin-top: 2rem"
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
@@ -2315,9 +2314,9 @@
 }
 {% endschema %}
 
-<script>
+{% comment %} <script>
   document.addEventListener("DOMContentLoaded", function () {
     const acceleratedButton = document.querySelector(".shopify-payment-button button");
     if (acceleratedButton) acceleratedButton.textContent = "COMPRAR"; 
   });
-</script>
+</script> {% endcomment %}

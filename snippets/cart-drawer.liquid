@@ -551,6 +551,7 @@
             {% if cart == empty %}
               disabled
             {% endif %}
+            onclick='JavaScript:timedRedirect()'
           >
             {{ 'sections.cart.checkout' | t }}
           </button>
@@ -559,3 +560,11 @@
     </div>
   </div>
 </cart-drawer>
+
+<script>
+  redirectTime = "500";
+  redirectURL = "/cart";
+  function timedRedirect() {
+    setTimeout("location.href = redirectURL;",redirectTime);
+  }
+</script>
