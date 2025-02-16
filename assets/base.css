@@ -3702,3 +3702,8 @@ a {
 button#checkout {
   display: none !important;
 }
+
+#shopify-section-template--19085036355827__image_banner_Ta8Ldh,
+.banner.banner--content-align-center {
+  margin: 0 !important;
+}
