@@ -1,4 +1,4 @@
-<section class="container-wide banner-wrapper p-relative container" style="margin-top: 0 !important;">
+<section class="container-wide banner-wrapper p-relative container">
   {% assign count = 0 %}
 {% for collection in collections %}
   {% if collection.description %}
@@ -124,7 +124,7 @@
                         </span>
                         {% endif %}
                       </span>
-                      <span class="js-price-display item-price h6">{{ product.price | money }}</span>
+                      <span class="js-price-display item-price h6" style="font-weight: 700">{{ product.price | money }}</span>
                     </div>
                   </div>
 

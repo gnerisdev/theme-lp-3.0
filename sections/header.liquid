@@ -150,7 +150,7 @@ padding-bottom: {{ section.settings.padding_bottom }}px;
       </div>
     </div>
 
-    <div class="list-link">
+    <div class="list-link container">
       <nav>
         {% for collection in collections %}
         <a class="nav-list-link desktop-nav-link" href="{{ collection.url }}">{{ collection.title }}</a>
@@ -514,51 +514,6 @@ requestAnimationFrame(this.hide.bind(this));
 
         verifyScroll();
         window.addEventListener("scroll", verifyScroll);
-
-        const navContainer = document.querySelector(".list-link");
-        const nav = document.querySelector(".list-link nav");
-
-        if (!nav) return; // Evita erro caso o elemento não exista
-
-        const leftButton = document.createElement("button");
-        const rightButton = document.createElement("button");
-
-        leftButton.innerHTML = `
-    <svg class="svg-inline--fa fa-2x p-all-half" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-      <path d="M4.2 247.5L151 99.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17L69.3 256l118.5 119.7c4.7 4.7 4.7 12.3 0 17L168 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 264.5c-4.7-4.7-4.7-12.3 0-17z"></path>
-    </svg>
-  `;
-
-        rightButton.innerHTML = `
-    <svg class="svg-inline--fa fa-2x p-all-half" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
-      <path d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z"></path>
-    </svg>
-  `;
-
-        leftButton.classList.add("scroll-btn", "scroll-left");
-        rightButton.classList.add("scroll-btn", "scroll-right");
-
-        navContainer.appendChild(leftButton);
-        navContainer.appendChild(rightButton);
-
-        function updateButtons() {
-          leftButton.style.display = nav.scrollLeft > 0 ? "block" : "none";
-          rightButton.style.display = nav.scrollLeft < nav.scrollWidth - nav.clientWidth ? "block" : "none";
-        }
-
-        leftButton.addEventListener("click", function () {
-          nav.scrollBy({ left: -100, behavior: "smooth" });
-        });
-
-        rightButton.addEventListener("click", function () {
-          nav.scrollBy({ left: 100, behavior: "smooth" });
-        });
-
-        nav.addEventListener("scroll", updateButtons);
-        window.addEventListener("resize", updateButtons);
-
-        // Inicializa a verificação
-        updateButtons();
       });
     </script>
 
@@ -638,17 +593,22 @@ requestAnimationFrame(this.hide.bind(this));
       .list-link {
         display: grid;
         margin: auto;
-        width: 90%;
         position: relative;
-        overflow-x: auto;
+
       }
 
       .list-link nav {
         display: flex;
         margin: auto;
+        width: 100%;
+        justify-content: space-between;
+        gap: 16px;
+        overflow-y: hidden;
+        overflow-x: auto;
       }
 
-      .list-link::-webkit-scrollbar {
+      .list-link nav::-webkit-scrollbar {
+        background: transparent;
         display: none;
       }
 
@@ -667,6 +627,9 @@ requestAnimationFrame(this.hide.bind(this));
         position: absolute;
         height: 62px;
         top: 50%;
+        background: transparent;
+        border: none;
+        z-index: 999999999;
         transform: translateY(-50%);
       }
 
@@ -779,6 +742,10 @@ requestAnimationFrame(this.hide.bind(this));
         padding: 0 15px;
       }
 
+      // .list-link .container {
+      //   width: 100%;
+      // }
+
       .desktop-nav-link,
       .notification-secondary a {
         color: #535353;
@@ -788,7 +755,7 @@ requestAnimationFrame(this.hide.bind(this));
 
       .desktop-nav-link {
         display: block;
-        padding: 12px 18px 0;
+        padding: 12px 0 0;
       }
 
       .desktop-nav-item,

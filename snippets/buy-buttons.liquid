@@ -79,16 +79,18 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
+            style="display: none"
             class="product-form__submit button button--full-width button--secondary"
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
               disabled
             {% endif %}
+            onclick='JavaScript:timedRedirect()'
           >
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                Adicionar ao Carrinho
+                ADD AO CARRINHO
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
@@ -97,11 +99,12 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
+            style="background: #c3a343; border-color: #c3a343"
             class="product-form__submit button button--full-width button--primary"
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
               disabled
             {% endif %}
-          onclick='JavaScript:timedRedirect()'>
+            onclick='JavaScript:timedRedirect()'>
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}

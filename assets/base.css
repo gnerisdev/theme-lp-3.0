@@ -1243,7 +1243,7 @@ deferred-media {
     rgba(var(--color-shadow), var(--shadow-opacity));
 }
 
-.button:after,
+/* .button:after,
 .shopify-challenge__button:after,
 .customer button:after {
   content: '';
@@ -1258,7 +1258,7 @@ deferred-media {
       rgba(var(--color-button-text), var(--border-opacity)),
     0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background));
   transition: box-shadow var(--duration-short) ease;
-}
+} */
 
 .button:not([disabled]):hover::after,
 .shopify-challenge__button:hover::after,
@@ -3697,4 +3697,8 @@ ul.list-style-none li {
 a {
   color: #434343;
   font-family: "Montserrat", Sans-serif;
+}
+
+button#checkout {
+  display: none !important;
 }
