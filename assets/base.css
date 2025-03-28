@@ -89,7 +89,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 
 body {
   overflow-x: hidden;
-  maring: 0 0 1px !important;
+  margin: 1px 0 0 !important;
 }
 
 .page-width.drawer-menu {
